@@ -1,0 +1,111 @@
+*{
+    font-family: 'Montserrat', sans-serif;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    background: #FF6A28;    
+}
+
+.menu{
+    background: #F1F1F1; 
+    padding: 24px 16px; 
+}
+
+.content{
+    margin: 0px auto;
+    max-width: 1200px;
+}
+
+.titulo{
+    font-weight: bold;
+    color: #FF6A28;
+    display: inline-block; 
+}
+
+.links{
+    display: inline-block;
+    margin-left: 31px;
+}
+
+a{
+    text-decoration: none;
+    color: #333333;
+    padding: 0 16px;
+}
+
+.receita{
+background: #F5F5F5; 
+padding: 16px;
+margin-top: 24px; 
+border-radius: 4px;  
+margin-left: 54px;
+margin-right: 54px;
+}
+
+p{
+    color: #777777;
+    padding: 8px 0;
+    font-size: 12px;
+}
+
+.imagem{
+    display: block;
+    text-align:center;
+    margin:20px;
+}
+.imagem-receita{
+    width: 266px;
+    padding: 20px;
+    display: inline-block;
+}
+
+h3{
+font-weight: bold;
+
+}
+ul,ol {
+    padding: 20px;
+}
+
+.quadrado{
+    list-style: square;
+    padding-bottom: 7px;
+    font-size: 18px;
+}
+
+li:first-child{
+margin-top: 20px;
+}
+
+li:last-child{
+margin-bottom:20px;
+}
+
+.decimal{
+    text-align: justify;
+    padding-bottom:7px;
+}
+
+h2 span{
+    color: #777777;
+    font-size: 17px;
+    margin-left: 8px;
+}
+
+.conteudo{
+    display: block;
+    text-align: center;
+}
+
+.text{
+    font-size: 12px;
+    color:black;
+    margin: 12px;
+}
+
+.table-center{
+    display: inline-block;
+}
