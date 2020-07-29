@@ -24,4 +24,3 @@ where count  between 3 and 6;
 ;
 
 // Com os dados da resposta anterior 3.B, busque as honras que sejam as duas mais premiadas (baseando na resposta anterior).
-s
