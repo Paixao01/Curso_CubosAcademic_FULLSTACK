@@ -34,7 +34,7 @@ limit 1
 ;
 
 //4.Assumindo a questão anterior, como você responderia essa questão utilizando subqueries? Dica:
-tente utilizar a subquery no WHERE . Resposta igual à anterior
+tente utilizar a subquery no WHERE. Resposta igual à anterior
 
 select
 	honor,
