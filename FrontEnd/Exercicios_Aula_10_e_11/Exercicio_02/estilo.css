@@ -1,0 +1,93 @@
+/*
+
+cor de fundo da página: hsl(157.3, 74.1%, 54.5%)
+verde usado nos demais lugares: #54cd90
+cinza do parágrafo e do R$: #6b6562
+
+*/
+
+*{
+box-sizing: border-box;
+}
+
+
+body{
+    background-color: hsl(157.3, 74.1%, 54.5%);
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.secao {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+    padding: 2em;
+    text-align: center;
+}
+
+h1{
+    margin:0px;
+}
+
+.planos{
+    display: flex;
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    align-items: center;
+}
+
+.secao p {
+    color: #6b6562;
+}
+
+.plano{
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    padding: 2.5em 2em;
+}
+
+.plano h2{
+    margin-top:0;
+    font-size: 1em;
+}
+
+.preco{
+    color:#a29b96;
+    font-size: 0.9rem;
+}
+
+.valor{
+    font-size: 2rem;
+    color:black;
+    font-weight:bold;
+}
+
+.plano ul{
+    text-align: left;
+    padding-left: 1em;
+}
+
+.plano button{
+    border: 2px solid #54cd90;
+    background-color: white;
+    color:#54cd90;
+    border-radius: 5px;
+    padding: 0.5em 2em;
+}
+
+.plano > * {
+    margin-top: 0.75em;
+}
+
+.plano.destaque {
+    border: 2px solid #54cd90;
+    padding: 3.5em 3em;
+    box-shadow: 0 10px 5px rgba(0, 0, 0, 0.2);
+}
+
+.plano.destaque button{
+    color: white;
+    background: #54cd90;
+}

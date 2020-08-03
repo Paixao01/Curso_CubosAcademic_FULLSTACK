@@ -1,0 +1,58 @@
+/*7
+Azul: 
+Rosa: #e21f60
+Cinza: #f3f3f3*/
+
+* {
+    box-sizing: border-box;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body >.cabecalho, body>.rodape{
+    background-color: #009ee2;
+    display: flex;
+    padding: 1em 2em;
+    justify-content: space-between;
+    align-items: center;
+}
+
+body{
+    margin: 0;
+    height: 100vh;
+
+}
+
+body> .cabecalho img{
+    max-height: 30px;
+}
+
+body> .cabecalho a{
+   text-decoration: none; 
+   background-color: white;
+   border-radius: 0.5em;
+   padding: 0.5em 1em;
+   max-height: 10px;
+}
+
+.principal {
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.principal .card{
+    background-color:  #f3f3f3; 
+    border-radius: 0.5em;
+    padding: 1em;
+    margin: 1em;
+    flex: 1 1 300px; 
+}
+
+.botao{
+    display: flex;
+	justify-content: flex-end;
+}
+
+h2{
+    color:#e21f60;
+}
