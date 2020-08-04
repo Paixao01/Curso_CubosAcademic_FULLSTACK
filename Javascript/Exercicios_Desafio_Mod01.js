@@ -83,4 +83,35 @@ else {
            console.log("NAO");     
     }  
 
+/*Um determinado estabelecimento funciona apenas em um horário comercial, ou seja, das 8h as 18h. Dado um determinado horário de chegada de um cliente, faça um programa que exiba na tela se o estabelecimento está ABERTO ou FECHADO no momento da chegada do cliente.
+
+Input Format
+
+A entrada será sempre composta por duas variáveis: - hora que contém sempre um número inteiro, informanto a hora inteira do horario da chegada do cliente. - min que contém sempre um número inteiro que informa os minutos do horário da chegada do cliente.
+
+Output Format
+
+Imprima ABERTO caso o estabelecimento esteja aberto no momento da chegada do cliente.
+Imprima FECHADO caso o estabelecimento esteja fechado no momento da chegada do cliente.
+Sample Input 0
+
+8:30
+Sample Output 0
+
+ABERTO
+Sample Input 1
+
+18:32
+Sample Output 1
+
+FECHADO
+*/
+
+if (hora>=8 && hora<=18){
+        console.log("ABERTO");   
+ }
+ else if (hora>18 && min<=0) {
+       console.log("FECHADO"); 
+ }
+
 
