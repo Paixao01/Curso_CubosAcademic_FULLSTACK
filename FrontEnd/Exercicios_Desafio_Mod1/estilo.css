@@ -13,6 +13,9 @@ font-family: 'Open Sans', sans-serif;
 
 .navegacao a {
     text-decoration:none;
+    padding-right:48px;
+    color:#545454;
+    font-size: 1em;
 }
 
 .cabecalho{ 
@@ -26,6 +29,7 @@ font-family: 'Open Sans', sans-serif;
     height: 70px; 
     max-width: 1170px;
     margin: auto;
+    
 }
 
 /* Principal e barra_lateral*/
@@ -116,19 +120,20 @@ h1{
      display: flex;
      justify-content:center;
      flex-wrap: wrap; 
+     padding: 20px;
  }
 
 
 .card{
-    background-color: #eeeeee;
+   
     width: 340px;
     height: 240px;
     margin-bottom:32px;
     font-size: 2em;  
-    color:#545454; 
     display:flex;
     align-items: center;
     justify-content: center;
+    /*background-color: #eee;*/
 }
    
 input{
@@ -154,14 +159,37 @@ input:focus{
     flex-wrap: wrap;
     border-bottom: 2px dotted #eee;
     padding-top: 16px;
-}
-.titulo_categoria{
-    padding-right:221px;
-    padding-bottom:16px;
-    color:#545454;
     
 }
 
+ h3:hover {
+    border-left: 1px solid #fe0078;
+}
+
+ .dados_categoria:hover {
+    border-bottom: 1px solid #fe0078;  
+    color: #fe0078;
+}
+
+.titulo_categoria:hover{
+    color: #fe0078;
+}
+
+
+.titulo_categoria{
+    padding-right:221px;
+    padding-bottom:16px;
+    color:#545454;   
+}
+
+ /* Pagina_Contato*/
+
+.text_contato{
+    
+    margin: 20px;
+    text-align: center;
+
+}
 
 /* Rodapé */
 
@@ -169,6 +197,7 @@ input:focus{
 
     display: flex;
     justify-content: center;
+    align-items: center;
     font-size: 1em;
     background-color: #222222;
     color:#fff;
