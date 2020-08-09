@@ -45,16 +45,17 @@ limit 3;
 
 --6)Utilizando apenas uma consulta com possibilidade de subqueries, responda: busque pelos quatro bruxas ou bruxos que possuem nomes que deram origem ao nome das casas de Hogwarts (House). Remova aqueles que sejam da espécie fantasma (Ghost). A resposta deve conter o sobrenome, o nome e a espécie.
 
-select 	
-	split_part(name,' ' ,2)  as sobrenome,
-	name,
-	species  
 
-from 
-	harry_potter
-where species <> 'Ghost' 
+select *
+	from (select split_part(name, ' ', 2) as sobrenome, name, species 
+			from harry_potter
+			where species <> 'Ghost'
+				and birth is not null) as fundadores
+where (sobrenome = 'Gryffindor' 
+	or sobrenome = 'Ravenclaw' 
+	or sobrenome = 'Slytherin' 
+	or sobrenome ='Hufflepuff')
 ;
-Obs: Professor, falta dados!
 
 --7)Existiam bruxos que não eram da casa (house) Sonserina (Slytherin) que eram leais ao Lord Voldemort? Se existiram, qual são seus nomes? Desconsidere aqueles que não estão associados a nenhuma casa. A Resposta deve conter apenas o nome desses bruxos.
 
@@ -101,13 +102,13 @@ where
 
 select * from(
 select distinct 
-	unnest (string_to_array(job, ' | ')) as trabalho, count(job) 
+	unnest (string_to_array(job, ' | ')) as tr, count(job) 
 from
 	harry_potter
-group by trabalho
+group by tr
 order by count(job) desc 
-) as new_table
-where new_table.count >2;
+) as tabela
+where tabela.count >2;
 
 --Grupo 3
 --1.A. Busque por todos os nomes de bruxos e quebre as palavras a fim de encontrarmos cada palavra usada como nome; Primeiros 5 registros (podem não ser os mesmos registros)
@@ -120,203 +121,121 @@ limit 5;
 
 --1.B. Agora, agrupe os nomes a fim de encontrar a quantidade de vezes que o certo nome é repetido. (Lembre-se, existem pessoas com famílias, então espera-se repetição de nomes (que apareçam número maior do que 1));
 
-select
-	unnest(string_to_array(name, ' ')) as nome, count(name) 
-from
-	harry_potter
+select name, count(*)
+	from (select unnest(string_to_array(name, ' ')) as name 
+			from harry_potter
+			) as nome
 	group by name
-limit 5;
+	limit 5
+;
 
 --1.C. Ordene-as palavras usadas como nome pela quantidade de repetições;
 
-select * from (select nome1, count(*) from (select
-	unnest (string_to_array(name, ' ')) as nome1 
-from
-	harry_potter	
-) as new_table
-group by
-	nome1
-order by count(*) desc
-limit 5
-) as tabela;
-
+select name, count(*)
+	from (select unnest(string_to_array(name, ' ')) as name 
+			from harry_potter
+			) as nome1
+	group by name
+	order by count desc 
+	limit 5
+;
 --1.D. Filtre por todos aqueles nomes que tiveram 4 ou mais repetições;
 
-select * from (select nome1, count(*) from (select
-	unnest (string_to_array(name, ' ')) as nome1 
-from
-	harry_potter	
-) as new_table
-group by
-	nome1
-order by count(*) desc
-) as tabela
-where count >= 4;
 
 --1.E. Agora utilizando o recurso de JOIN, encontre todos os personagens que possuem nome que esteja no grupo encontrado na questão anterior (1.D);
 
-select * from(select  name, unnest (string_to_array(name, ' ')) as nome, house 
-from
-	harry_potter) harry
-inner join
-	(select * from (select nome1, count(*) from (select
-	unnest (string_to_array(name, ' ')) as nome1 
-from
-	harry_potter	
-) as new_table
-group by
-	nome1
-order by count(*) desc
-) as tabela
-where count >= 4) hp 
-on hp.nome1 = harry.nome;
 
 --1.F. Agora, filtre apenas por aqueles que estejam vinculados a casa de magia (house sejam IS NOT NULL);
 
-select * from(select  name, unnest (string_to_array(name, ' ')) as nome, house 
-from
-	harry_potter) harry
-inner join
-	(select * from (select nome1, count(*) from (select
-	unnest (string_to_array(name, ' ')) as nome1 
-from
-	harry_potter	
-) as new_table
-group by
-	nome1
-order by count(*) desc
-) as tabela
-where count >= 4) hp
-on hp.nome1 = harry.nome
-where house is not null;
 
 --1.G. Agora, encontre a quantidade de pessoas por casa de magia (house).
 
-select house, count (nome)from(select  name, unnest (string_to_array(name, ' ')) as nome, house 
-from
-	harry_potter) harry
-inner join
-	(select * from (select nome1, count(*) from (select
-	unnest (string_to_array(name, ' ')) as nome1 
-from
-	harry_potter	
-) as new_table
-group by
-	nome1
-order by count(*) desc
-) as tabela
-where count >= 4) hp
-on hp.nome1 = harry.nome
-where house is not null
-group by house ;
 
 --2.A Entre todas as habilidades, quebre-as e busque por aquelas que falem sobre as posições do Quadribol citadas anteriormente no enunciado.
 
-select 
-	unnest(string_to_array(skills, ' | ')) as nome
-from
-	harry_potter
-where 
-skills = 'Seeker' or skills = 'Keeper' or skills = 'Beater' or skills = 'Chaser'
-limit 5
+select * 
+	from (select unnest(string_to_array(skills, ' | ')) as nome
+			from harry_potter
+			) as habilidade
+	where nome = 'Seeker' 
+		or nome = 'Chaser' 
+		or nome = 'Beater' 
+		or nome = 'Keeper'
+	limit 5
 ;
+
 --2.B. Sabendo das informações da questão anterior (2.A), liste a quantidade de jogadores por posição;
-select nome, count(nome) from (
-select 
-	unnest(string_to_array(skills, ' | ')) as nome
-from
-	harry_potter
-) as table2
-where (nome = 'Keeper' or nome = 'Seeker' or nome = 'Chaser' or nome = 'Beater')
-group by nome 
-limit 5
-;
+
+select nome, count(*) 
+	from (select  unnest(string_to_array(skills, ' | ')) as nome
+			from harry_potter) as habilidade
+	where nome = 'Seeker' 
+		or nome = 'Chaser' 
+		or nome = 'Beater' 
+		or nome = 'Keeper'
+	group by nome
+	order by nome  
+	;
 
 --2.C. Sabendo das informações da questão anterior (2.B), ordene-os os registros encontrados e busque pela posição que possui MENOR quantidade de jogadores;
 
-select nome, count(nome) from (
-select 
-	unnest(string_to_array(skills, ' | ')) as nome
-from
-	harry_potter
-) as table2
-where (nome = 'Keeper' or nome = 'Seeker' or nome = 'Chaser' or nome = 'Beater')
-group by nome
-order by count(nome)
-limit 1
+select nome, count(*) 
+	from (select  unnest(string_to_array(skills, ' | ')) as nome
+			from harry_potter) as habilidade
+	where nome = 'Seeker' 
+	or nome = 'Chaser' 
+	or nome = 'Beater' 
+	or nome = 'Keeper'
+	group by nome
+	order by count(*) 
+	limit 1
 ;
 
 --2.D. Sabendo das informações da questão anterior (2.C), busque por todos os jogadores que são da posição encontrada.
 
-select name, nome1 from (
-select name, unnest(string_to_array(skills, ' | ')) as nome1 from harry_potter) as table3 inner join(
-select nome, count(nome) from (
-select 
-	unnest(string_to_array(skills, ' | ')) as nome
-from
-	harry_potter
-) as table2
-where (nome = 'Keeper' or nome = 'Seeker' or nome = 'Chaser' or nome = 'Beater')
-group by nome
-order by count(nome)
-limit 1
-) as table4
-on table3.nome1 = table4.nome
-
-;
 --3. Para aqueles bruxos possuam patrono e que esses patronos não sejam Unknown, None e Non-corporeal nem NULL, busque pelos bruxos ou bruxas que possuem o mesmo animal. Por fim, ordene-os alfabeticamente e traga a informação de nome e o patrono.
 
-select name, patronus from harry_potter where patronus in (
-select patronus from (
-select patronus, count(patronus) from  (
-select
-	name, patronus
-from
-	harry_potter
-) as table1
-group by patronus
-) as table2
-where
-	patronus is not null and patronus <> 'Unknown' and patronus <> 'None' and patronus <> 'Non-corporeal'
-	and count >1
-) order by patronus
+select donos.name, animal.patronus
+	from (select name, patronus
+			from harry_potter
+			) as donos
+inner join (select * 
+			from (select patronus, count(*) 
+					from harry_potter
+					where patronus is not null
+						and patronus <> 'None'
+						and patronus <> 'Non-corporeal'
+						and patronus <> 'Unknown'
+					group by patronus 
+					order by count(*) desc
+					) as patronus 
+			where count >= 2) as animal
+on donos.patronus = animal.patronus
+order by donos.patronus
 ;
 
 --4.A. Busque por todas possibilidades individuais de lealdade (Loyalty). Dica: os valores estão listados separando cada valor por | (barra vertical entre espaços);
 
-select unnest (string_to_array(loyalty, ' | ' )) as lealdade
-from harry_potter
-limit 5;
-
+select unnest(string_to_array(loyalty, '|')) as nome
+	from harry_potter
+	limit 5
+;
 --4.B. Após saber da informação (4.A), busque por estas mesmas lealdades e suas respectivas quantidades;
 
-select unnest (string_to_array(loyalty, ' | ' )) as nome, count(*) 
-from harry_potter
-group by nome
-order by count(*) desc 
-;
+select nome, count(*) from (select  unnest(string_to_array(loyalty, ' | ')) as nome
+	from harry_potter) as leal
+	group by nome
+	order by count(*) desc 
+	;
 
 --4.C. Após saber da informação (4.B), busque por aquela lealdade que possui quantidade igual a 4 e que não seja igual ao ministro da magia (Minister of Magic).
-select * from (
-select unnest (string_to_array(loyalty, ' | ' )) as nome, count(*) 
-from harry_potter
-group by nome
-order by count(*) desc 
-) as table1
-where nome <> 'Minister of Magic' and count = 4 
+select *
+	from (select nome, count(*) from (select  unnest(string_to_array(loyalty, ' | ')) as nome
+			from harry_potter) as leal
+			group by nome
+			order by count(*) desc) as leal2
+	where nome <> 'Minister of Magic'
+		and count = 4
 ;
 --4.D. Após saber da informação (4.C), busque pelo nome das pessoas que possuem lealdade ao indíviduo ou organização encontrada na ©.
-
-select name from ( 
-select name, unnest (string_to_array(loyalty, ' | ' )) as nome1 from harry_potter 
-) as table3 inner join (
-select * from (
-select unnest (string_to_array(loyalty, ' | ' )) as nome, count(*) 
-from harry_potter
-group by nome
-order by count(*) desc 
-) as table1
-where nome <> 'Minister of Magic' and count = 4
-)as table2
-on table3.nome1 = table2.nome 
 
