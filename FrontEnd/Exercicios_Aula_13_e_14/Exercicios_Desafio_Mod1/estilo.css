@@ -159,28 +159,28 @@ input:focus{
     flex-wrap: wrap;
     border-bottom: 2px dotted #eee;
     padding-top: 16px;
+    color:#545454;
     
+}
+
+.titulo_categoria{
+    padding-right:221px;
+    padding-bottom:16px;     
 }
 
  h3:hover {
     border-left: 1px solid #fe0078;
 }
 
- .dados_categoria:hover {
+ .dados_categoria:first-of-type:hover {
     border-bottom: 1px solid #fe0078;  
     color: #fe0078;
 }
 
-.titulo_categoria:hover{
+/*.titulo_categoria:hover{
     color: #fe0078;
-}
+}*/
 
-
-.titulo_categoria{
-    padding-right:221px;
-    padding-bottom:16px;
-    color:#545454;   
-}
 
  /* Pagina_Contato*/
 
